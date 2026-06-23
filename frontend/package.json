@@ -1,0 +1,39 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Repo base para arrancar proyectos nuevos. Cloná, instalá y listo.",
+  "main": "index.js",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "start": "react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@react-router/node": "^7.18.0",
+    "@react-router/serve": "^7.18.0",
+    "flowbite-react": "^0.12.17",
+    "isbot": "^5.1.36",
+    "react": "^19.2.4",
+    "react-data-table-component": "^7.7.0",
+    "react-dom": "^19.2.4",
+    "react-hook-form": "^7.72.1",
+    "react-icons": "^5.6.0",
+    "react-router": "^7.18.0"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.18.0",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/node": "^22",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.3",
+    "vite-tsconfig-paths": "^6.1.1"
+  }
+}
