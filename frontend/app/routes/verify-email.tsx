@@ -27,7 +27,7 @@ export function meta({}: Route.MetaArgs) {
 export default function VerifyEmail() {
   const [searchParams] = useSearchParams();
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const { verifyEmail } = useAuth();
+  const { verifyEmail, refreshUser, user } = useAuth();
   const navigate = useNavigate();
 
   const tokenFromUrl = searchParams.get("token") || "";
@@ -35,10 +35,12 @@ export default function VerifyEmail() {
   const onSubmit = async (data: VerifyEmail) => {
     setSubmitError(null);
     try {
+      if (!user) return;
       await verifyEmail(data);
+      await refreshUser(user?.id);
       navigate("/dashboard");
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       setSubmitError(error.message);
     }
   };

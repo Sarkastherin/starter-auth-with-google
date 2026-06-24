@@ -19,11 +19,16 @@ export type ForgotPassword = {
 };
 
 export type ResetPassword = {
-  token:string;
-  newPassword:string;
+  token: string;
+  newPassword: string;
   confirmNewPassword: string;
-}
+};
 
 export type VerifyEmail = {
-  token: string
-}
+  token: string;
+};
+
+export type SendVerificationEmail = {
+  id: string;
+  email: string;
+};

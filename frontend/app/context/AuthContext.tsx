@@ -11,6 +11,7 @@ import type {
   ForgotPassword,
   ResetPassword,
   VerifyEmail,
+  SendVerificationEmail,
 } from "../types/auth";
 import type { LoginInput } from "../types/auth";
 
@@ -27,6 +28,10 @@ interface AuthContextType {
   resetPassword: (data: ResetPassword) => Promise<{ message: string }>;
   verifyEmail: (data: VerifyEmail) => Promise<{ message: string }>;
   loginWithGoogle: () => void;
+  sendEmailVerification: (
+    data: SendVerificationEmail,
+  ) => Promise<{ message: string }>;
+  refreshUser: (id: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -54,7 +59,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setIsLoading(false);
     }
   }, []);
-
+  const refreshUser = useCallback(async (id: string) => {
+    try {
+      const response = await fetch(`${API_URL}/api/auth/user/${id}`, {
+        method: "GET",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error);
+      }
+      const data = await response.json();
+      setUser(data.user);
+    } catch (error: any) {
+      throw new Error(error.message || "Error obtener usuario");
+    }
+  }, []);
   const login = async (data: LoginInput) => {
     try {
       const response = await fetch(`${API_URL}/api/auth/login`, {
@@ -178,7 +198,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         throw new Error(errorData.error);
       }
       const responseData = await response.json();
-      console.log(responseData);
+      await checkSession();
       return responseData;
     } catch (error: any) {
       console.log(error);
@@ -190,6 +210,33 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`;
   };
 
+  const sendEmailVerification = useCallback(
+    async (data: SendVerificationEmail) => {
+      const { id, email } = data;
+      try {
+        const response = await fetch(
+          `${API_URL}/api/auth/send-verification-email`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id, email }),
+          },
+        );
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error);
+        }
+        const responseData = await response.json();
+        return responseData;
+      } catch (error: any) {
+        console.log(error);
+        throw new Error(error.message || "Error al enviar email");
+      }
+    },
+    [],
+  );
   useEffect(() => {
     checkSession();
   }, []);
@@ -207,6 +254,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         resetPassword,
         verifyEmail,
         loginWithGoogle,
+        sendEmailVerification,
+        refreshUser,
       }}
     >
       {children}

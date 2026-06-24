@@ -7,6 +7,10 @@ export const findUserByEmail = async (email: string) => {
   const user = await db.select().from(users).where(eq(users.email, email));
   return user.length > 0 ? user[0] : null;
 };
+export const findUserById = async (id: string) => {
+  const user = await db.select().from(users).where(eq(users.id, id));
+  return user.length > 0 ? user[0] : null;
+};
 
 export const registerUser = async (email: string, password: string) => {
   // 1. 🔎 Validar si el usuario ya existe
