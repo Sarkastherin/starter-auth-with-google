@@ -1,14 +1,7 @@
 import type { Route } from "./+types/home";
 import {
-  Button,
-  Checkbox,
-  Label,
-  TextInput,
-  Card,
   Alert,
 } from "flowbite-react";
-import { Input, InputShowPassword } from "../components/InputsForms";
-import { useForm } from "react-hook-form";
 import type { VerifyEmailInput } from "shared";
 import { useSearchParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";

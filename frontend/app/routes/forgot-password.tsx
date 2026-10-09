@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
-import { Button, Checkbox, Label, TextInput, Card } from "flowbite-react";
-import { Input, InputShowPassword } from "../components/InputsForms";
+import { Button, Card } from "flowbite-react";
+import { Input } from "../components/InputsForms";
 import { useForm } from "react-hook-form";
 import type { ForgotPasswordInput } from "shared";
 import { Link } from "react-router";
