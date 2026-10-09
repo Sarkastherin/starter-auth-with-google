@@ -17,12 +17,7 @@ Repositorio base para arrancar proyectos con autenticación lista (email/passwor
 git clone <tu-repo-url>
 cd starter-auth
 
-# Backend
-cd backend
-npm install
-
-# Frontend
-cd ../frontend
+# Desde la raíz (monorepo con npm workspaces: instala shared, backend y frontend)
 npm install
 ```
 
@@ -77,6 +72,8 @@ npx drizzle-kit migrate
 
 Esto crea las tablas `users` y `auth_accounts` en PostgreSQL.
 
+> Si clonás el starter apuntando a una base de datos que ya existía (creada con `drizzle-kit push`), usá `npx drizzle-kit push` para sincronizar las columnas nuevas. En una instalación nueva con la base vacía, `npx drizzle-kit migrate` aplica todas las migraciones.
+
 ### 5. Arrancar el proyecto
 
 En dos terminales separadas:
@@ -107,6 +104,7 @@ npm run dev
 ## Arquitectura del proyecto
 
 ```
+├── shared/          # Tipos TypeScript compartidos (users, auth). Zero-build: se consume como fuente
 ├── backend/          # API REST con Fastify, TypeScript y Drizzle ORM
 │   ├── src/
 │   │   ├── db/           # Conexión a BD y esquemas

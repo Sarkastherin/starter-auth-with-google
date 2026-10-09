@@ -1,8 +1,3 @@
-export type User = {
-  id: string;
-  email: string;
-  emailVerified: boolean;
-};
 export type LoginInput = {
   email: string;
   password: string;
@@ -14,21 +9,22 @@ export type RegisterInput = {
   password: string;
   confirmPassword: string;
 };
-export type ForgotPassword = {
+
+export type ForgotPasswordInput = {
   email: string;
 };
 
-export type ResetPassword = {
+export type ResetPasswordInput = {
   token: string;
   newPassword: string;
   confirmNewPassword: string;
 };
 
-export type VerifyEmail = {
+export type VerifyEmailInput = {
   token: string;
 };
 
-export type SendVerificationEmail = {
+export type SendVerificationEmailInput = {
   id: string;
   email: string;
 };

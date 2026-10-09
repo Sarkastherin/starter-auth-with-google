@@ -9,7 +9,7 @@ import {
 } from "flowbite-react";
 import { Input, InputShowPassword } from "../components/InputsForms";
 import { useForm } from "react-hook-form";
-import type { VerifyEmail } from "../types/auth";
+import type { VerifyEmailInput } from "shared";
 import { useSearchParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useAuth } from "~/context/AuthContext";
@@ -32,7 +32,7 @@ export default function VerifyEmail() {
 
   const tokenFromUrl = searchParams.get("token") || "";
 
-  const onSubmit = async (data: VerifyEmail) => {
+  const onSubmit = async (data: VerifyEmailInput) => {
     setSubmitError(null);
     try {
       if (!user) return;

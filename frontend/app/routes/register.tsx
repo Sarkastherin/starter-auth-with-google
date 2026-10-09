@@ -2,7 +2,7 @@ import type { Route } from "./+types/home";
 import { Button, Card } from "flowbite-react";
 import { Input, InputShowPassword } from "../components/InputsForms";
 import { useForm } from "react-hook-form";
-import type { RegisterInput } from "../types/auth";
+import type { RegisterInput } from "shared";
 import { Link } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "~/context/AuthContext";
@@ -55,7 +55,7 @@ export default function Register() {
       <Card className="w-sm">
         <div className="flex flex-col items-center gap-4 mb-4 mt-6">
           <h2 className="text-3xl font-bold text-center">Registrarse</h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-base-600 dark:text-base-300">
             Crea una cuenta nueva
           </p>
         </div>
@@ -113,8 +113,8 @@ export default function Register() {
           <FcGoogle className="mr-2" />
           Registrarse con Google
         </Button>
-        <div className="mt-4 text-center border-t border-gray-200 dark:border-gray-700 pt-6">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
+        <div className="mt-4 text-center border-t border-base-200 dark:border-base-700 pt-6">
+          <p className="text-base-600 dark:text-base-400 text-sm">
             ¿Ya tienes una cuenta?{" "}
             <Link
               to="/login"

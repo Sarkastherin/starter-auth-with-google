@@ -2,7 +2,7 @@ import type { Route } from "./+types/home";
 import { Button, Checkbox, Label, TextInput, Card } from "flowbite-react";
 import { Input, InputShowPassword } from "../components/InputsForms";
 import { useForm } from "react-hook-form";
-import type { ResetPassword } from "../types/auth";
+import type { ResetPasswordInput } from "shared";
 import { useSearchParams, useNavigate } from "react-router";
 import { useState } from "react";
 import { useAuth } from "~/context/AuthContext";
@@ -29,14 +29,14 @@ export default function ResetPassword() {
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<ResetPassword>({
+  } = useForm<ResetPasswordInput>({
     defaultValues: {
       token: tokenFromUrl,
       newPassword: "",
       confirmNewPassword: "",
     },
   });
-  const onSubmit = async (data: ResetPassword) => {
+  const onSubmit = async (data: ResetPasswordInput) => {
     setSubmitError(null);
     try {
       await resetPassword(data);
@@ -52,7 +52,7 @@ export default function ResetPassword() {
           <h2 className="text-3xl font-bold text-center">
             Restablecer contraseña
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-base-600 dark:text-base-300">
             Ingresa tu nueva contraseña
           </p>
         </div>

@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center gap-6 py-8 px-4 text-center">
       <h1 className="text-4xl md:text-5xl font-bold">Mi repo base con Auth</h1>
-      <p className="text-base md:text-lg text-gray-600 dark:text-gray-400">
+      <p className="text-base md:text-lg text-base-600 dark:text-base-400">
         Inicia cualquier proyecto con una base sólida y funcional.
       </p>
       <div className="flex gap-4">

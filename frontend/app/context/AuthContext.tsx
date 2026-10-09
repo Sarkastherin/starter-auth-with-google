@@ -8,12 +8,12 @@ import {
 import type {
   RegisterInput,
   User,
-  ForgotPassword,
-  ResetPassword,
-  VerifyEmail,
-  SendVerificationEmail,
-} from "../types/auth";
-import type { LoginInput } from "../types/auth";
+  ForgotPasswordInput,
+  ResetPasswordInput,
+  VerifyEmailInput,
+  SendVerificationEmailInput,
+  LoginInput,
+} from "shared";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
@@ -24,12 +24,12 @@ interface AuthContextType {
   login: (data: LoginInput) => Promise<void>;
   logout: () => Promise<void>;
   registerUser: (data: RegisterInput) => Promise<any>;
-  forgotPassword: (data: ForgotPassword) => Promise<{ message: string }>;
-  resetPassword: (data: ResetPassword) => Promise<{ message: string }>;
-  verifyEmail: (data: VerifyEmail) => Promise<{ message: string }>;
+  forgotPassword: (data: ForgotPasswordInput) => Promise<{ message: string }>;
+  resetPassword: (data: ResetPasswordInput) => Promise<{ message: string }>;
+  verifyEmail: (data: VerifyEmailInput) => Promise<{ message: string }>;
   loginWithGoogle: () => void;
   sendEmailVerification: (
-    data: SendVerificationEmail,
+    data: SendVerificationEmailInput,
   ) => Promise<{ message: string }>;
   refreshUser: (id: string) => Promise<void>;
 }
@@ -135,7 +135,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const forgotPassword = useCallback(async (data: ForgotPassword) => {
+  const forgotPassword = useCallback(async (data: ForgotPasswordInput) => {
     try {
       const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
         method: "POST",
@@ -160,7 +160,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const resetPassword = useCallback(async (data: ResetPassword) => {
+  const resetPassword = useCallback(async (data: ResetPasswordInput) => {
     const { token, newPassword } = data;
     try {
       const response = await fetch(`${API_URL}/api/auth/reset-password`, {
@@ -182,7 +182,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const verifyEmail = useCallback(async (data: VerifyEmail) => {
+  const verifyEmail = useCallback(async (data: VerifyEmailInput) => {
     const { token } = data;
     try {
       const response = await fetch(`${API_URL}/api/auth/verify-email`, {
@@ -211,7 +211,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const sendEmailVerification = useCallback(
-    async (data: SendVerificationEmail) => {
+    async (data: SendVerificationEmailInput) => {
       const { id, email } = data;
       try {
         const response = await fetch(

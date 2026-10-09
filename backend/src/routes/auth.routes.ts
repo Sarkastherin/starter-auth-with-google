@@ -4,7 +4,7 @@ import {
   registerUser,
   loginUser,
   findUserByEmail,
-  findUserById,
+  findUserProfileById,
   resetPassword,
   verifyEmailUser,
   registerOrLoginGoogleUser,
@@ -204,9 +204,13 @@ export async function authRoutes(fastify: FastifyInstance) {
 
   // 🔒 4. Ruta protegida
   fastify.get("/me", { preHandler: [checkAuth] }, async (request, reply) => {
+    const user = await findUserProfileById((request.user as { id: string }).id);
+    if (!user) {
+      return reply.status(404).send({ error: "Usuario no encontrado" });
+    }
     return reply.status(200).send({
       message: "Perfil recuperado con éxito",
-      user: request.user,
+      user,
     });
   });
 
@@ -405,16 +409,22 @@ export async function authRoutes(fastify: FastifyInstance) {
       const googleUser = (await userResponse.json()) as {
         email: string;
         name: string;
+        given_name: string;
+        family_name: string;
+        picture: string;
         id: string;
       };
-      console.log("googleUser", googleUser);
       const user = await registerOrLoginGoogleUser(googleUser);
 
       const token = await reply.jwtSign({
         id: user.id,
         email: user.email,
         emailVerified: user.emailVerified,
-      });
+        name: user.name,
+        givenName: user.givenName,
+        familyName: user.familyName,
+        picture: user.picture,
+      }, { expiresIn: "7d" });
 
       reply
         .setCookie("identificadorSesion", token, {
@@ -422,7 +432,7 @@ export async function authRoutes(fastify: FastifyInstance) {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           sameSite: "lax",
-          maxAge: 60 * 60 * 24, // 24 horas
+          maxAge: 60 * 60 * 24 * 7, // 7 días
         })
         .redirect(`${process.env.FRONTEND_URL}/dashboard`);
 
@@ -446,12 +456,12 @@ export async function authRoutes(fastify: FastifyInstance) {
       });
     }
     try {
-      const user = await findUserById(parsed.data.id);
+      const user = await findUserProfileById(parsed.data.id);
       if (!user) {
-      return reply.status(404).send({
-        error: "Usuario no encontrado",
-      });
-    }
+        return reply.status(404).send({
+          error: "Usuario no encontrado",
+        });
+      }
       return reply.status(200).send({
         message: "Usuario recuperado con exito",
         user: user,

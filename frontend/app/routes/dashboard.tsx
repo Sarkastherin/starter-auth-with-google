@@ -47,7 +47,15 @@ export default function Dashboard() {
       setIsSubmiting(false);
     }
   };
-  console.log("verificado?",user?.emailVerified)
+
+  const getInitials = () => {
+    if (user?.name) {
+      const parts = user.name.trim().split(" ");
+      return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+    }
+    return user?.email?.substring(0, 2).toUpperCase() || "U";
+  };
+
   return (
     <section className="min-h-screen flex flex-col items-center justify-center gap-6 py-8 px-4 text-center relative">
       
@@ -97,11 +105,30 @@ export default function Dashboard() {
         </Alert>
       )}
 
-      <h1 className="text-4xl md:text-5xl font-bold">Bienvenido</h1>
-      
-      <code className="text-lg bg-green-200 p-2 rounded dark:bg-green-800 dark:text-green-200">
-        {user?.email}
-      </code>
+      {/* PERFIL: avatar, nombre y email */}
+      <div className="flex flex-col items-center gap-3">
+        {user?.picture ? (
+          <img
+            src={user.picture}
+            alt="Foto de perfil"
+            className="w-20 h-20 rounded-full border-2 border-base-200 dark:border-base-700"
+            referrerPolicy="no-referrer"
+          />
+        ) : (
+          <div className="w-20 h-20 rounded-full bg-base-100 dark:bg-base-800 flex items-center justify-center text-base-500 dark:text-base-400 text-xl font-bold">
+            {getInitials()}
+          </div>
+        )}
+        <h1 className="text-4xl md:text-5xl font-bold">Bienvenido</h1>
+        {user?.name && (
+          <p className="text-lg font-medium text-base-700 dark:text-base-300">
+            {user.name}
+          </p>
+        )}
+        <code className="text-lg bg-primary-200 p-2 rounded dark:bg-primary-800 dark:text-primary-200">
+          {user?.email}
+        </code>
+      </div>
 
       <div className="flex gap-4">
         <Button onClick={logout} color="red">

@@ -2,7 +2,7 @@ import type { Route } from "./+types/home";
 import { Button, Checkbox, Label, Card } from "flowbite-react";
 import { Input, InputShowPassword } from "../components/InputsForms";
 import { useForm } from "react-hook-form";
-import type { LoginInput } from "../types/auth";
+import type { LoginInput } from "shared";
 import { Link } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "~/context/AuthContext";
@@ -48,7 +48,7 @@ export default function Login() {
       <Card className="w-sm">
         <div className="flex flex-col items-center gap-4 mb-4 mt-6">
           <h2 className="text-3xl font-bold text-center">Iniciar sesión</h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-base-600 dark:text-base-300">
             Bienvenido de nuevo
           </p>
         </div>
@@ -102,12 +102,12 @@ export default function Login() {
           <FcGoogle className="mr-2" />
           Iniciar sesión con Google
         </Button>
-        <div className="mt-4 text-center border-t border-gray-200 dark:border-gray-700 pt-6">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
+        <div className="mt-4 text-center border-t border-base-200 dark:border-base-700 pt-6">
+          <p className="text-base-600 dark:text-base-400 text-sm">
             ¿No tienes cuenta?{" "}
             <Link
               to="/register"
-              className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+              className="text-primary-600 dark:text-primary-400 hover:underline font-semibold"
             >
               Regístrate aquí
             </Link>

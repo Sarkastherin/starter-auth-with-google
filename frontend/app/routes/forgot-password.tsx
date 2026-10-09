@@ -2,7 +2,7 @@ import type { Route } from "./+types/home";
 import { Button, Checkbox, Label, TextInput, Card } from "flowbite-react";
 import { Input, InputShowPassword } from "../components/InputsForms";
 import { useForm } from "react-hook-form";
-import type { ForgotPassword } from "../types/auth";
+import type { ForgotPasswordInput } from "shared";
 import { Link } from "react-router";
 import { useAuth } from "~/context/AuthContext";
 import { useState } from "react";
@@ -24,12 +24,12 @@ export default function ForgotPassword() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<ForgotPassword>({
+  } = useForm<ForgotPasswordInput>({
     defaultValues: {
       email: "",
     },
   });
-  const onSubmit = async (data: ForgotPassword) => {
+  const onSubmit = async (data: ForgotPasswordInput) => {
     setSuccessMessage(null);
     await forgotPassword(data);
     setSuccessMessage(
@@ -43,7 +43,7 @@ export default function ForgotPassword() {
           <h2 className="text-3xl font-bold text-center">
             Recuperar contraseña
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-base-600 dark:text-base-300">
             Ingresa tu correo electrónico para recuperar tu contraseña
           </p>
         </div>
@@ -72,12 +72,12 @@ export default function ForgotPassword() {
             </p>
           )}
         </form>
-        <div className="mt-4 text-center border-t border-gray-200 dark:border-gray-700 pt-6">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
+        <div className="mt-4 text-center border-t border-base-200 dark:border-base-700 pt-6">
+          <p className="text-base-600 dark:text-base-400 text-sm">
             ¿No tienes cuenta?{" "}
             <Link
               to="/register"
-              className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+              className="text-primary-600 dark:text-primary-400 hover:underline font-semibold"
             >
               Regístrate aquí
             </Link>

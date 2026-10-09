@@ -10,6 +10,8 @@ import { useDarkMode } from "./hooks/useDarkMode";
 import type { Route } from "./+types/root";
 import "./app.css";
 import { AuthProvider } from "./context/AuthContext";
+import { flowbiteTheme } from "./theme/flowbite";
+import { ThemeProvider } from "flowbite-react";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,11 +47,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   useDarkMode();
   return (
-    <AuthProvider>
-      <main className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
-        <Outlet />
-      </main>
-    </AuthProvider>
+    <ThemeProvider theme={flowbiteTheme} root>
+      <AuthProvider>
+        <main className="bg-base-100 dark:bg-base-900 text-base-900 dark:text-base-100 min-h-screen">
+          <Outlet />
+        </main>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

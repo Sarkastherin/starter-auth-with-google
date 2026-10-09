@@ -5,6 +5,10 @@ export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
   email: varchar('email', { length: 255 }).notNull().unique(),
   emailVerified: boolean('email_verified').default(false).notNull(),
+  name: varchar('name', { length: 255 }),
+  givenName: varchar('given_name', { length: 255 }),
+  familyName: varchar('family_name', { length: 255 }),
+  picture: text('picture'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 });
