@@ -84,7 +84,7 @@ export default function Login() {
 
             <Link
               to="/forgot-password"
-              className="text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium"
+              className="text-sm text-primary-600 dark:text-primary-400 hover:underline font-medium"
             >
               ¿Olvidaste tu contraseña?
             </Link>

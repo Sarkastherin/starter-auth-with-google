@@ -118,7 +118,7 @@ export default function Register() {
             ¿Ya tienes una cuenta?{" "}
             <Link
               to="/login"
-              className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+              className="text-primary-600 dark:text-primary-400 hover:underline font-semibold"
             >
               Inicia sesión aquí
             </Link>

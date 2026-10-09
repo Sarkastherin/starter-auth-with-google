@@ -2,11 +2,7 @@ import { Label, TextInput, HelperText } from "flowbite-react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
 import { type InputHTMLAttributes, useState, forwardRef } from "react";
-import type {
-  FieldErrors,
-  RegisterOptions,
-  UseFormRegister,
-} from "react-hook-form";
+
 type InputShowPasswordProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   error?: string;
